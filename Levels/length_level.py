@@ -1,9 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-
-#Funcion que evalua y llama a la funcion necesaria para realizar la conversion de las unidades.
-def convertir():
-  pass
+from Conversiones import longitud
 
 #Funcion para mostrar el frame.
 def open_frame_length(root):
@@ -53,8 +50,43 @@ def open_frame_length(root):
   input_user.bind("<FocusOut>", add_placeholder)
   input_user.pack(pady= 20)
 
+  #Funcion que evalua y llama a la funcion necesaria para realizar la conversion de las unidades.
+  def convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado):
+    unidad_inicial = cbb_input_unit.get()
+    unidad_final = cbb_unit_convert.get()
+    valor_str = input_user.get()
+    
+    if unidad_inicial == "Seleccione una unidad" or unidad_final == "Seleccione una unidad":
+      label_resultado.config(text="Selecciona Ambas Unidades.")
+      return
+    
+    try:
+      valor = float(valor_str)
+
+    except ValueError:
+      label_resultado.config(text="Por Favor ingrese un número válido.")
+      return
+
+    # Mapeo entre combinaciones de unidades y funciones reales.
+    convertions = {
+      ("metros", "kilometros"): longitud.metros_a_kilometros,
+      ("kilometros", "metros"): longitud.kilometros_a_metros
+    }
+
+    clave = (unidad_inicial, unidad_final)
+
+    if clave in convertions:
+      resultado = convertions[clave](valor) # Valor es el numero a convertir que se pasa a la funcion.
+      label_resultado.config(text=f"Resultado: {resultado} {unidad_final}")
+    else:
+      label_resultado.config(text="Conversion no Disponible.")
+
   #Creo boton para llamar a la funcion que realiza la conversion.
-  button_convert = ttk.Button(frame_length, text="CONVERTIR", command= convertir())
+  button_convert = ttk.Button(frame_length, text="CONVERTIR", command=lambda: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
   button_convert.pack(padx=20, pady=20)
 
   #Label que muestra el resultado de la conversion.
+  label_resultado = ttk.Label(frame_length, text="", font=("Arial", 12, "bold"))
+  label_resultado.pack(pady=10)
+
+  
