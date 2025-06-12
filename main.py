@@ -22,7 +22,7 @@ root = tk.Tk()
 root.title("Units Conversor")
 
 #Defino el alto y ancho de la ventana.
-root.geometry("800x600")
+root.geometry("500x400")
 
 
 frame = ttk.Frame(root, padding=10, relief="flat")

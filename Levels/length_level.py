@@ -2,91 +2,130 @@ import tkinter as tk
 from tkinter import ttk
 from Conversiones import longitud
 
-#Funcion para mostrar el frame.
 def open_frame_length(root):
-  #Creo el frame que va a contener la elección de las unidades a convertir.
-  frame_length = ttk.Frame(root, padding=10, relief="flat")
-  frame_length.pack(fill="x", expand=True)
+    # Estilos personalizados
+    style = ttk.Style()
+    style.configure("Custom.TFrame", background="#f8f9fa")
+    style.configure("Header.TLabel", background="#f15500", foreground="#f4fce2", font=("Arial", 20, "bold italic"))
+    style.configure("Custom.TLabel", background="#f8f9fa", font=("Arial", 12, "italic"))
+    style.configure("Custom.TButton", font=("Arial", 12, "bold"), padding=6)
 
-  #Mensaje de bienvenida de la ventana.
-  label_main = ttk.Label(frame_length, text="Conversor de Longitud", font=("Arial", 20, "bold italic"), foreground="#f4fce2", background="#f15500")
-  label_main.pack(pady=10, expand=True)
+    # Frame principal
+    frame_length = ttk.Frame(root, padding=20, style="Custom.TFrame")
+    frame_length.pack(fill="both", expand=True)
 
-  #Lista con los nombres de las unidades a elegir dentro de los combobox
-  units = ["ft", "pulgadas", "milimetros", "centimetros", "metros", "kilometros"]
+    # Configuración de columnas
+    frame_length.columnconfigure(0, weight=1)
+    frame_length.columnconfigure(1, weight=1)
 
-  #Creo combobox para la eleccion de la unidad inicial.
-  ttk.Label(frame_length, text="Unidad Inicial", font=("Arial", 12,"italic")).pack(padx=20)
-  cbb_input_unit = ttk.Combobox(frame_length, values= units, state= "readonly", width= 30, foreground= "gray")
-  cbb_input_unit.pack(pady= 20, padx=20)
-  cbb_input_unit.config(font=("Arial", 12, "italic"))
-  cbb_input_unit.set("Seleccione una unidad")
+    # Título
+    label_main = ttk.Label(frame_length, text="Conversor de Longitud", style="Header.TLabel")
+    label_main.grid(row=0, column=0, columnspan=2, pady=(0, 20))
 
-  #Creo combobox para la eleccion de la unidad a convertir.
-  ttk.Label(frame_length, text="Unidad a Convertir", font=("Arial", 12, "italic")).pack(padx=20)
-  cbb_unit_convert = ttk.Combobox(frame_length, values= units, state= "readonly", width= 30, foreground="grey")
-  cbb_unit_convert.pack(padx=20, pady=20)
-  cbb_unit_convert.config(font= ("Arial", 12, "italic"))
-  cbb_unit_convert.set("Seleccione una unidad")
+    # Lista de unidades
+    units = ["ft", "pulgadas", "milimetros", "centimetros", "metros", "kilometros"]
 
-  
-  ##Funcion que borra el texto dentro del Entry.
-  def clear_placeholder(event):
-    if input_user.get() == "Ingrese el valor a convertir":
-      input_user.delete(0, tk.END)
-      input_user.config(foreground= "black")
+    # Unidad inicial
+    ttk.Label(frame_length, text="Unidad Inicial", style="Custom.TLabel").grid(row=1, column=0, sticky="e", pady=5)
+    cbb_input_unit = ttk.Combobox(frame_length, values=units, state="readonly", width=30, font=("Arial", 12, "italic"), foreground="gray")
+    cbb_input_unit.set("Seleccione una unidad")
+    cbb_input_unit.grid(row=1, column=1, pady=5)
 
-  
-  ##Funcion que muestra el texto dentro del Entry
-  def add_placeholder(event):
-    if not input_user.get():
-      input_user.insert(0, "Ingrese el valor a convertir")
-      input_user.config(foreground= "gray")
+    # Unidad a convertir
+    ttk.Label(frame_length, text="Unidad a Convertir", style="Custom.TLabel").grid(row=2, column=0, sticky="e", pady=5)
+    cbb_unit_convert = ttk.Combobox(frame_length, values=units, state="readonly", width=30, font=("Arial", 12, "italic"), foreground="gray")
+    cbb_unit_convert.set("Seleccione una unidad")
+    cbb_unit_convert.grid(row=2, column=1, pady=5)
 
-  #Creo un Entry para que el usuario ingrese el valor a convertir.
-  input_user = ttk.Entry(frame_length, width=30, font= ("Arial", 12, "italic"), foreground= "gray")
-  input_user.insert(0, "Ingrese el valor a convertir")
-  input_user.bind("<FocusIn>", clear_placeholder)
-  input_user.bind("<FocusOut>", add_placeholder)
-  input_user.pack(pady= 20)
+    # Placeholder en el Entry
+    def clear_placeholder(event):
+        if input_user.get() == "Ingrese el valor a convertir":
+            input_user.delete(0, tk.END)
+            input_user.config(foreground="black")
 
-  #Funcion que evalua y llama a la funcion necesaria para realizar la conversion de las unidades.
-  def convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado):
-    unidad_inicial = cbb_input_unit.get()
-    unidad_final = cbb_unit_convert.get()
-    valor_str = input_user.get()
-    
-    if unidad_inicial == "Seleccione una unidad" or unidad_final == "Seleccione una unidad":
-      label_resultado.config(text="Selecciona Ambas Unidades.")
-      return
-    
-    try:
-      valor = float(valor_str)
+    def add_placeholder(event):
+        if not input_user.get():
+            input_user.insert(0, "Ingrese el valor a convertir")
+            input_user.config(foreground="gray")
 
-    except ValueError:
-      label_resultado.config(text="Por Favor ingrese un número válido.")
-      return
+    # Campo de entrada
+    ttk.Label(frame_length, text="Valor a Convertir", style="Custom.TLabel").grid(row=3, column=0, sticky="e", pady=5)
+    input_user = ttk.Entry(frame_length, width=30, font=("Arial", 12, "italic"), foreground="gray")
+    input_user.insert(0, "Ingrese el valor a convertir")
+    input_user.bind("<FocusIn>", clear_placeholder)
+    input_user.bind("<FocusOut>", add_placeholder)
+    input_user.grid(row=3, column=1, pady=5)
 
-    # Mapeo entre combinaciones de unidades y funciones reales.
-    convertions = {
-      ("metros", "kilometros"): longitud.metros_a_kilometros,
-      ("kilometros", "metros"): longitud.kilometros_a_metros
-    }
+    # Resultado
+    label_resultado = ttk.Label(frame_length, text="", font=("Arial", 12, "bold"), background="#f8f9fa")
+    label_resultado.grid(row=5, column=0, columnspan=2, pady=15)
 
-    clave = (unidad_inicial, unidad_final)
+    # Función de conversión
+    def convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado):
+        unidad_inicial = cbb_input_unit.get()
+        unidad_final = cbb_unit_convert.get()
+        valor_str = input_user.get()
 
-    if clave in convertions:
-      resultado = convertions[clave](valor) # Valor es el numero a convertir que se pasa a la funcion.
-      label_resultado.config(text=f"Resultado: {resultado} {unidad_final}")
-    else:
-      label_resultado.config(text="Conversion no Disponible.")
+        if unidad_inicial == "Seleccione una unidad" or unidad_final == "Seleccione una unidad":
+            label_resultado.config(text="Selecciona ambas Unidades.")
+            return
 
-  #Creo boton para llamar a la funcion que realiza la conversion.
-  button_convert = ttk.Button(frame_length, text="CONVERTIR", command=lambda: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
-  button_convert.pack(padx=20, pady=20)
+        if unidad_inicial == unidad_final:
+            label_resultado.config(text=f"Resultado: {valor_str} {unidad_final}")
+            return
 
-  #Label que muestra el resultado de la conversion.
-  label_resultado = ttk.Label(frame_length, text="", font=("Arial", 12, "bold"))
-  label_resultado.pack(pady=10)
+        try:
+            valor = float(valor_str)
+        except ValueError:
+            label_resultado.config(text="Por favor ingrese un número válido.")
+            return
 
-  
+        convertions = {
+            ("ft", "pulgadas"): longitud.ft_a_pulgadas,
+            ("ft", "milimetros"): longitud.ft_a_milimetros,
+            ("ft", "centimetros"): longitud.ft_a_centimetros,
+            ("ft", "metros"): longitud.ft_a_metros,
+            ("ft", "kilometros"): longitud.ft_a_kilometros,
+
+            ("pulgadas", "ft"): longitud.pulgadas_a_ft,
+            ("pulgadas", "milimetros"): longitud.pulgadas_a_milimetros,
+            ("pulgadas", "centimetros"): longitud.pulgadas_a_centimetros,
+            ("pulgadas", "metros"): longitud.pulgadas_a_metros,
+            ("pulgadas", "kilometros"): longitud.pulgadas_a_kilometros,
+
+            ("milimetros", "ft"): longitud.milimetros_a_ft,
+            ("milimetros", "pulgadas"): longitud.milimetros_a_pulgadas,
+            ("milimetros", "centimetros"): longitud.milimetros_a_centimetros,
+            ("milimetros", "metros"): longitud.milimetros_a_metros,
+            ("milimetros", "kilometros"): longitud.milimetros_a_kilometros,
+
+            ("centimetros", "ft"): longitud.centimetros_a_ft,
+            ("centimetros", "pulgadas"): longitud.centimetros_a_pulgadas,
+            ("centimetros", "milimetros"): longitud.centimetros_a_milimetros,
+            ("centimetros", "metros"): longitud.centimetros_a_metros,
+            ("centimetros", "kilometros"): longitud.centimetros_a_kilometros,
+
+            ("metros", "ft"): longitud.metros_a_ft,
+            ("metros", "pulgadas"): longitud.metros_a_pulgadas,
+            ("metros", "milimetros"): longitud.metros_a_milimetros,
+            ("metros", "centimetros"): longitud.metros_a_centimetros,
+            ("metros", "kilometros"): longitud.metros_a_kilometros,
+
+            ("kilometros", "ft"): longitud.kilometros_a_ft,
+            ("kilometros", "pulgadas"): longitud.kilometros_a_pulgadas,
+            ("kilometros", "milimetros"): longitud.kilometros_a_milimetros,
+            ("kilometros", "centimetros"): longitud.kilometros_a_centimetros,
+            ("kilometros", "metros"): longitud.kilometros_a_metros,
+        }
+
+        clave = (unidad_inicial, unidad_final)
+        if clave in convertions:
+            resultado = convertions[clave](valor)
+            label_resultado.config(text=f"Resultado: {resultado} {unidad_final}")
+        else:
+            label_resultado.config(text="Conversión no disponible.")
+
+    # Botón de conversión
+    button_convert = ttk.Button(frame_length, text="CONVERTIR", style="Custom.TButton", command=lambda: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
+    button_convert.grid(row=4, column=0, columnspan=2, pady=15)
+
