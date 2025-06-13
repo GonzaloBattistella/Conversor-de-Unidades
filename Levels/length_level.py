@@ -3,11 +3,14 @@ from tkinter import ttk
 from Conversiones import longitud
 
 def open_frame_length(root):
+    #Acciones Asociadas a Teclas
+    root.bind('<Return>', lambda event: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
+
     # Estilos personalizados
     style = ttk.Style()
-    style.configure("Custom.TFrame", background="#f8f9fa")
-    style.configure("Header.TLabel", background="#f15500", foreground="#f4fce2", font=("Arial", 20, "bold italic"))
-    style.configure("Custom.TLabel", background="#f8f9fa", font=("Arial", 12, "italic"))
+    style.configure("Custom.TFrame", background="#6d7581")
+    style.configure("Header.TLabel", background="#6d7581", foreground="#e5ebed", font=("Arial", 20, "bold italic"))
+    style.configure("Custom.TLabel", background="#6d7581", font=("Arial", 12, "bold italic"))
     style.configure("Custom.TButton", font=("Arial", 12, "bold"), padding=6)
 
     # Frame principal
@@ -57,7 +60,7 @@ def open_frame_length(root):
     input_user.grid(row=3, column=1, pady=5)
 
     # Resultado
-    label_resultado = ttk.Label(frame_length, text="", font=("Arial", 12, "bold"), background="#f8f9fa")
+    label_resultado = ttk.Label(frame_length, text="", font=("Arial", 12, "bold"), background="#6d7581")
     label_resultado.grid(row=5, column=0, columnspan=2, pady=15)
 
     # Función de conversión
