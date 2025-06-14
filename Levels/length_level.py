@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from Conversiones import longitud
 
-def open_frame_length(root):
+def open_frame_length(root, frame_menu, combobox):
     #Acciones Asociadas a Teclas
     root.bind('<Return>', lambda event: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
 
@@ -131,4 +131,8 @@ def open_frame_length(root):
     # Botón de conversión
     button_convert = ttk.Button(frame_length, text="CONVERTIR", style="Custom.TButton", command=lambda: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
     button_convert.grid(row=4, column=0, columnspan=2, pady=15)
+
+    # Boton Volver
+    btn_back = ttk.Button(frame_length, text="Volver", style="Custom.TButton", width=6, command=lambda: [frame_length.destroy(), frame_menu.pack(fill="x", expand=True), combobox.set("Seleccione una Opcion")]) #Muestro el menu principal
+    btn_back.grid(row=6, column=0, sticky="w", padx=10, pady=(20, 0)) #Posiciono el boton volver en la esquina inferior izquierda
 

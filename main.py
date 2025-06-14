@@ -43,7 +43,7 @@ def show_frame(option):
 
   match option:
     case "longitud":
-      length_level.open_frame_length(root)
+      length_level.open_frame_length(root, frame, combobox)
 
 # ==== Creo el Root ====
 root = tk.Tk()
