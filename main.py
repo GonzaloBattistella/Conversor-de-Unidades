@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 from pathlib import Path
-from Levels import length_level
+import Levels
+import Levels.length_level
+import Levels.temperature_level
 
 # ==== Funcion de confirmacion personalizada ====
 def confirmar_salida():
@@ -43,7 +45,10 @@ def show_frame(option):
 
   match option:
     case "longitud":
-      length_level.open_frame_length(root, frame, combobox)
+      Levels.length_level.open_frame_length(root, frame, combobox)
+    case "temperatura":
+      Levels.temperature_level.open_frame_temperature(root, frame, combobox)
+      
 
 # ==== Creo el Root ====
 root = tk.Tk()
@@ -70,8 +75,6 @@ ttk.Label(frame, text="Elige el tipo de Conversión", font=("Arial", 14, "bold i
 #Obtengo los nombres de los tipos de conversiones.
 folder = Path("Conversiones")
 names_types = [archivo.stem for archivo in folder.iterdir() if archivo.suffix == ".py" and archivo.name != "__init__.py"]
-
-#Creo ttk.style para combobox
 
 #Creo combobox (lista de opciones) con los nombres de los tipos de conversiones.
 combobox = ttk.Combobox(frame, values = names_types, state= "readonly")
