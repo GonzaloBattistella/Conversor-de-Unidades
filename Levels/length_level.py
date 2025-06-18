@@ -70,7 +70,7 @@ def open_frame_length(root, frame_menu, combobox):
         valor_str = input_user.get()
 
         if unidad_inicial == "Seleccione una unidad" or unidad_final == "Seleccione una unidad":
-            label_resultado.config(text="Selecciona ambas Unidades.")
+            label_resultado.config(text="Seleccione ambas Unidades.")
             return
 
         if unidad_inicial == unidad_final:

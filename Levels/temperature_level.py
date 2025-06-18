@@ -62,8 +62,59 @@ def open_frame_temperature(root, frame, combobox):
   label_resultado.grid(row=5, column=0, columnspan=2, pady=15)
 
   # Funcion de Conversion
-  def convertir(input_unit, unit_convert, input_user, label_resultado):
-    pass
+  def convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado):
+    unidad_inicial = cbb_input_unit.get()
+    unidad_final = cbb_unit_convert.get()
+    valor_str = input_user.get()
+
+    if unidad_inicial == "Seleccione una Unidad" or unidad_final == "Seleccione una Unidad":
+      label_resultado.config(text="Seleccione ambas Unidades")
+      return
+    
+    if unidad_inicial == unidad_final:
+      label_resultado.config(text= f"Resultado: {valor_str} {unidad_final}")
+      return
+    
+    try:
+      valor = float(valor_str)
+    except ValueError:
+      label_resultado.config(text="Por favor ingrese un número válido.")
+      return
+    
+    #Diccionarios de posibles combinaciones de conversiones.
+    conversions = {
+      ("°C (Celsius)", "°F (Fahrenheit)"): temperatura.celsius_a_fahrenheit,
+      ("°C (Celsius)", "°K (Kelvin)"): temperatura.celsius_a_kelvin,
+      ("°C (Celsius)", "°R (Rankine)"): temperatura.celsius_a_rankine,
+      ("°C (Celsius)", "°Ré (Réaumur)"): temperatura.celsius_a_reaumur,
+
+      ("°F (Fahrenheit)", "°C (Celsius)"): temperatura.fahrenheit_a_celsius,
+      ("°F (Fahrenheit)", "°K (Kelvin)"): temperatura.fahrenheit_a_kelvin,
+      ("°F (Fahrenheit)", "°R (Rankine)"): temperatura.fahrenheit_a_rankine,
+      ("°F (Fahrenheit)", "°Ré (Réaumur)"): temperatura.fahrenheit_a_reaumur,
+
+      ("°K (Kelvin)", "°C (Celsius)"): temperatura.kelvin_a_celsius,
+      ("°K (Kelvin)", "°F (Fahrenheit)"): temperatura.kelvin_a_fahrenheit,
+      ("°K (Kelvin)", "°R (Rankine)"): temperatura.kelvin_a_rankine,
+      ("°K (Kelvin)", "°Ré (Réaumur)"): temperatura.kelvin_a_reaumur,
+
+      ("°R (Rankine)", "°C (Celsius)"): temperatura.rankine_a_celsius,
+      ("°R (Rankine)", "°F (Fahrenheit)"): temperatura.rankine_a_fahrenheit,
+      ("°R (Rankine)", "°K (Kelvin)"): temperatura.rankine_a_kelvin,
+      ("°R (Rankine)", "°Ré (Réaumur)"): temperatura.rankine_a_reaumur,
+
+      ("°Ré (Réaumur)", "°C (Celsius)"): temperatura.reaumur_a_celsius,
+      ("°Ré (Réaumur)", "°F (Fahrenheit)"): temperatura.reaumur_a_fahrenheit,
+      ("°Ré (Réaumur)", "°K (Kelvin)"): temperatura.reaumur_a_kelvin,
+      ("°Ré (Réaumur)", "°R (Rankine)"): temperatura.reaumur_a_rankine
+    }
+
+    clave = (unidad_inicial, unidad_final)
+    if clave in conversions:
+      resultado = conversions[clave](valor)
+      label_resultado.config(text=f"Resultado: {resultado} {unidad_final}")
+    else:
+      label_resultado.config(text="Conversión no disponible.")
 
   # Boton de conversion
   btn_convert = ttk.Button(frame_temp, text="CONVERTIR", style="Custom.TButton", command= lambda: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
