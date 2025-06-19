@@ -122,4 +122,4 @@ def open_frame_temperature(root, frame, combobox):
 
   # Boton Volver
   btn_back = ttk.Button(frame_temp, text="Volver", style="Custom.TButton", command= lambda: [frame_temp.destroy(), frame.pack(fill="x", expand=True), combobox.set("Seleccione una opcion")]) #Muestro el menu principal.
-  btn_back.grid(row=6, column=0, sticky="w", padx=10, pady=(20, 0)) 
+  btn_back.grid(row=6, column=0, sticky="w", padx=10, pady=(20, 0))

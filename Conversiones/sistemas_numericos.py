@@ -8,6 +8,6 @@ def decimal_a_binario(decimal):
   
   return "0" if binary == "" else binary
 
-def binario_a_decimal(binary: str):
+def binario_a_decimal(binary):
   return int(binary, 2)
 

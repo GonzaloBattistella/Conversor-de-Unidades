@@ -3,6 +3,7 @@ from tkinter import ttk
 from pathlib import Path
 import Levels
 import Levels.length_level
+import Levels.system_numerics_level
 import Levels.temperature_level
 
 # ==== Funcion de confirmacion personalizada ====
@@ -48,6 +49,8 @@ def show_frame(option):
       Levels.length_level.open_frame_length(root, frame, combobox)
     case "temperatura":
       Levels.temperature_level.open_frame_temperature(root, frame, combobox)
+    case "sistemas_numericos":
+      Levels.system_numerics_level.open_frame_numerics_systems(root, frame, combobox)
       
 
 # ==== Creo el Root ====
