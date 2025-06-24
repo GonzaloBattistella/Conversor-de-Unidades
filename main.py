@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from pathlib import Path
 import Levels
+import Levels.file_size_level
 import Levels.length_level
 import Levels.system_numerics_level
 import Levels.temperature_level
@@ -45,12 +45,16 @@ def show_frame(option):
       widget.pack_forget()
 
   match option:
-    case "longitud":
+    case "Longitud":
       Levels.length_level.open_frame_length(root, frame, combobox)
-    case "temperatura":
+    case "Temperatura":
       Levels.temperature_level.open_frame_temperature(root, frame, combobox)
-    case "sistemas_numericos":
+    case "Sistemas Numericos":
       Levels.system_numerics_level.open_frame_numerics_systems(root, frame, combobox)
+    case "Tamaño Archivos":
+      tamaño_original = root.geometry()
+      Levels.file_size_level.open_frame_file_size(root, frame, combobox, tamaño_original)
+    
       
 
 # ==== Creo el Root ====
@@ -75,9 +79,8 @@ frame.pack(fill="both", expand= True)
 ttk.Label(frame, text= "¿Que unidad quieres convertir?", font=("Arial", 16, "bold italic"), style="Header.TLabel").pack(pady=10)
 ttk.Label(frame, text="Elige el tipo de Conversión", font=("Arial", 14, "bold italic"), style="Header.TLabel").pack(pady=10)
 
-#Obtengo los nombres de los tipos de conversiones.
-folder = Path("Conversiones")
-names_types = [archivo.stem for archivo in folder.iterdir() if archivo.suffix == ".py" and archivo.name != "__init__.py"]
+#Lista con opciones del combobox de categorias
+names_types = ["Longitud", "Temperatura", "Sistemas Numericos", "Tamaño Archivos"]
 
 #Creo combobox (lista de opciones) con los nombres de los tipos de conversiones.
 combobox = ttk.Combobox(frame, values = names_types, state= "readonly")

@@ -3,7 +3,9 @@ from tkinter import ttk
 from Conversiones import temperatura
 
 def open_frame_temperature(root, frame, combobox):
-  
+  #Acciones Asociadas a Teclas
+  root.bind('<Return>', lambda event: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
+
   # Estilos personalizados
   style = ttk.Style()
   style.configure("Custom.TFrame", background="#6d7581")

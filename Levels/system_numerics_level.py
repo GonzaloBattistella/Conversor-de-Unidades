@@ -4,7 +4,7 @@ import re
 
 def open_frame_numerics_systems(root, frame_menu, combobox):
   #Acciones Asociadas a Teclas
-  #root.bind('<Return>', lambda event: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
+  root.bind('<Return>', lambda event: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
 
   # Estilos personalizados
   style = ttk.Style()
