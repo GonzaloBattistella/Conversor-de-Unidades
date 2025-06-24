@@ -3,7 +3,7 @@ from tkinter import ttk
 import Levels
 import Levels.file_size_level
 import Levels.length_level
-import Levels.system_numerics_level
+import Levels.number_system_level
 import Levels.temperature_level
 
 # ==== Funcion de confirmacion personalizada ====
@@ -50,7 +50,7 @@ def show_frame(option):
     case "Temperatura":
       Levels.temperature_level.open_frame_temperature(root, frame, combobox)
     case "Sistemas Numericos":
-      Levels.system_numerics_level.open_frame_numerics_systems(root, frame, combobox)
+      Levels.number_system_level.open_frame_numerics_systems(root, frame, combobox)
     case "Tamaño Archivos":
       tamaño_original = root.geometry()
       Levels.file_size_level.open_frame_file_size(root, frame, combobox, tamaño_original)

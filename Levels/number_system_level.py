@@ -77,10 +77,10 @@ def open_frame_numerics_systems(root, frame_menu, combobox):
     """
   
     patrones = {
-       "binario": r"^[01]+$",
-        "octal": r"^[0-7]+$",
-        "decimal": r"^\d+$",
-        "hexadecimal": r"^[0-9a-fA-F]+$"
+      "binario": r"^[01]+$",
+      "octal": r"^[0-7]+$",
+      "decimal": r"^\d+$",
+      "hexadecimal": r"^[0-9a-fA-F]+$"
     }
 
     patron = patrones.get(sistema.lower())
