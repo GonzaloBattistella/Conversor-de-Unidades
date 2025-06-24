@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import re
 
 def open_frame_numerics_systems(root, frame_menu, combobox):
   #Acciones Asociadas a Teclas
@@ -25,7 +26,7 @@ def open_frame_numerics_systems(root, frame_menu, combobox):
   label_main.grid(row=0, column=0, columnspan=2, pady=(0, 20))
 
   #Lista de Unidades
-  units = ["binario", "octal", "decimal", "hexadecimal"]
+  units = ["Binario", "Octal", "Decimal", "Hexadecimal"]
 
   #Unidad Inicial
   ttk.Label(frame_sysnum, text="Unidad Inicial", style="Custom.TLabel").grid(row=1, column=0, sticky="e", pady=5)
@@ -62,9 +63,91 @@ def open_frame_numerics_systems(root, frame_menu, combobox):
   label_resultado = ttk.Label(frame_sysnum, text="", font=("Arial", 12, "bold"), background="#6d7581")
   label_resultado.grid(row=5, column=0, columnspan=2, pady=15)
 
+  #Funcion validar entrada numerica
+  def validar_entrada_numerica(valor, sistema):
+    """
+    Valida si la entrada es correcta según el sistema numérico.
+
+    Parámetros:
+      valor (str): la entrada del usuario.
+      sistema (str): puede ser "binario", "octal", "decimal" o "hexadecimal".
+
+    Retorna:
+      True si es válido, False si no lo es.
+    """
+  
+    patrones = {
+       "binario": r"^[01]+$",
+        "octal": r"^[0-7]+$",
+        "decimal": r"^\d+$",
+        "hexadecimal": r"^[0-9a-fA-F]+$"
+    }
+
+    patron = patrones.get(sistema.lower())
+
+    if not patron:
+      raise ValueError(f"Sistema numérico desconocido: {sistema}")
+    
+    return re.fullmatch(patron, valor) is not None
+
   #Funcion de Conversion
   def convertir (cbb_input_unit, cbb_unit_convert, input_user, label_resultado):
-    pass
+    valor_str = input_user.get()
+    unidad_inicial = cbb_input_unit.get()
+    unidad_final = cbb_unit_convert.get()
+
+    if unidad_inicial == "Seleccione una Unidad" or unidad_final == "Seleccione una Unidad":
+      label_resultado.config(text="Seleccione ambas unidades.")
+      return
+    
+    if unidad_inicial == unidad_final:
+      label_resultado.config(text=f"Resultado: {valor_str} {unidad_final}")
+      return
+
+    sistemas = {
+      "Binario": "binario",
+      "Octal": "octal",
+      "Decimal": "decimal",
+      "Hexadecimal": "hexadecimal"
+    }
+
+    sistema_entrada = sistemas.get(unidad_inicial)
+
+    #Validar la entrada segun el sistema Numerico
+    if not validar_entrada_numerica(valor_str, sistema_entrada):
+      label_resultado.config(text=f"Entrada {sistema_entrada} no válida.")
+      return
+
+    #Primero convertir la entrada a base 10 
+    base_origen = {
+      "Binario": 2,
+      "Octal": 8,
+      "Decimal": 10,
+      "Hexadecimal": 16
+    }
+
+    try:
+      numero_base10 = int(valor_str, base=base_origen[unidad_inicial])
+    except ValueError:
+      label_resultado.config(text="No se pudo interpretar el valor.")
+      return
+    
+    #Luego convertir a la unidad destino
+    conversiones = {
+      "Binario": bin,
+      "Octal": oct,
+      "Decimal": str,
+      "Hexadecimal": hex
+    }
+
+    resultado = conversiones[unidad_final](numero_base10)
+
+    #Limpiar prefijos como 0b, 0o, 0x para mostrar solo el valor
+    resultado = resultado.replace("0b", "").replace("0o", "").replace("0x", "").upper()
+
+    #Muestro el resultado en el label
+    label_resultado.config(text=f"Resultado: {resultado} ({unidad_final})")
+
 
   #Boton Convertir
   btn_convert = ttk.Button(frame_sysnum, text="CONVERTIR", style="Custom.TButton", command=lambda: convertir(cbb_input_unit, cbb_unit_convert, input_user, label_resultado))
