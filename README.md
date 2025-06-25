@@ -2,6 +2,8 @@
 
 Aplicación de escritorio desarrollada en Python con interfaz gráfica usando Tkinter. Permite convertir entre distintas unidades de longitud, temperatura, sistemas numéricos y tamaño de archivos.
 
+Es un proyecto práctico que demuestra habilidades en programación Python, diseño de interfaces con Tkinter, validación de entradas del usuario y empaquetado de aplicaciones para su distribución.
+
 ## 🚀 Funcionalidades
 
 - Conversión de **longitudes**: metros, kilómetros, pies, pulgadas, etc.
@@ -15,24 +17,40 @@ Aplicación de escritorio desarrollada en Python con interfaz gráfica usando Tk
 
 ## 🖼️ Capturas de pantalla
 
-_Agregá acá capturas del programa funcionando._
+_Espacio reservado para agregar capturas o videos del programa funcionando._
 
 ## 🛠️ Tecnologías usadas
 
 - [Python 3](https://www.python.org/)
 - [Tkinter](https://docs.python.org/3/library/tkinter.html)
+- [PyInstaller](Para generar el ejecutable del programa)
+
+## 📦 Ejecutar el programa
+
+- Si descargaste la versión compilada, seguí estos pasos:
+  1. Abrí la carpeta `dist/`.
+  2. Hacé doble clic en el archivo `ConversorDeUnidades.exe`.
+  3. ¡Listo! El conversor se ejecutará sin necesidad de tener Python instalado.
+
+⚠️ Si Windows muestra una advertencia de seguridad, podés confirmar que querés ejecutar el archivo.  
+🧠 Asegurate de no mover el `.exe` fuera de la carpeta `dist/`, ya que puede necesitar archivos que están allí.
 
 ## 📁 Estructura del proyecto
 
 ```bash
 ConversorUnidades/
-├── main.py
-├── Levels/
-│   ├── length_level.py
-│   ├── temperature_level.py
-│   ├── number_system_level.py
-│   └── file_size_level.py
+├── Assets/
+│   └── conversor_icon.ico
 ├── Conversiones/
 │   ├── longitud.py
-│   ├── temperatura.py
-│   └── tamaño_archivos.py
+│   ├── tamaño_archivos.py
+│   └── temperatura.py
+├── dist/
+│   └── ConversorDeUnidades.exe
+├── Levels/
+│   ├── file_size_level.py
+│   ├── length_level.py
+│   ├── number_system_level.py
+│   └── temperature_level.py
+├── main.py
+├── README.md
