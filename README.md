@@ -23,7 +23,7 @@ _Espacio reservado para agregar capturas o videos del programa funcionando._
 
 - [Python 3](https://www.python.org/)
 - [Tkinter](https://docs.python.org/3/library/tkinter.html)
-- [PyInstaller](Para generar el ejecutable del programa)
+- [PyInstaller](https://pyinstaller.org/en/stable/)(Para generar el ejecutable del programa)
 
 ## 📦 Ejecutar el programa
 
